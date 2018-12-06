@@ -46,7 +46,7 @@ for row in sheet:
         if col == 'X':
             count += 1
 
-print("Overlapping values:", count)
+print("Square inches of overlap:", count)
 
 def check_overlap(cut):
     num, top, height, left, width = get_points(cut)
@@ -61,3 +61,21 @@ def check_overlap(cut):
 
 for cut in cuts:
     check_overlap(cut)
+
+
+#########################################################################
+#  Just for fun, uncomment the section below, adjust the second for     #
+#   loop's range to your maximum output area's char width/4, and enjoy  #
+#   the ascii art output :)                                             #
+#########################################################################
+#
+#for i in range(150):
+#    for j in range(50):
+#        try:
+#            if sheet[i][j] == 0:
+#                print("{:^4s}".format("."), end="")
+#            else:
+#                print("{:^4d}".format(sheet[i][j]), end='')
+#        except:
+#            print("{:^4s}".format(sheet[i][j]), end='')
+#    print()
