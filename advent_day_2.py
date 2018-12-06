@@ -1,8 +1,6 @@
 import os
 from collections import Counter
 
-os.chdir('/home/pi/Python/advent/')
-
 with open(os.getcwd()+'/files/day_2.txt', 'r') as f:
     lines = [line.strip() for line in f.readlines()]
 

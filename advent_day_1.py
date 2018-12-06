@@ -1,9 +1,7 @@
 import pickle
 import os
 
-os.chdir("/home/pi/Python/advent/")
-
-with open('nums.pickle', 'rb') as file:
+with open(os.getcwd() + '/files/nums.pickle', 'rb') as file:
     nums = pickle.load(file)
 
 freq_set = set()

@@ -3,8 +3,6 @@ import re
 import pandas as pd
 import numpy as np
 
-os.chdir('/home/pi/Python/advent/')
-
 with open(os.getcwd()+'/files/day_3.txt', 'r') as f:
     cuts = [line.strip() for line in f.readlines()]
 
