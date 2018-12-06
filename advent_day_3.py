@@ -1,10 +1,14 @@
 import os
 import re
+import pandas as pd
+import numpy as np
 
 os.chdir('/home/pi/Python/advent/')
 
 with open(os.getcwd()+'/files/day_3.txt', 'r') as f:
     cuts = [line.strip() for line in f.readlines()]
+
+sheet = [[0 for _ in range(1, 1001)] for _ in range(1, 1001)]
 
 patt = re.compile(
     '#(?P<num>[0-9]{1,4}) @ (?P<left>[0-9]{1,4})' +
@@ -12,43 +16,50 @@ patt = re.compile(
     'x(?P<height>[0-9]{1,4})'
     )
 
-class Square():
-    def __init__(self, bottom, left, top, right):
-        self.bottom=bottom
-        self.top=top
-        self.left=left
-        self.right=right
-
-    def overlaps (self, other):
-        if not isinstance(other, Square):
-            raise TypeError("cannot compare with non Square type")
-        if (self.bottom >= other.top or
-            self.left >= other.right or
-            self.right <= other.left or
-            self.top <= other.bottom):
-            return False
-        return True
-
-    def overlap_amount (self, other):
-        if not isinstance(other, Square):
-            raise TypeError("cannot compare with non Square type")
-        if not self.overlaps(other):
-            raise Exception("Squares do not overlap.")
-        ##TODO: finish this func
-        pass
-
 def get_points(x):
     match  = re.match(patt, x).groupdict()
 
+    num    = int(match['num'])
     top    = int(match['top'])
-    bottom = top - int(match['height'])
+    height = int(match['height'])
     left   = int(match['left'])
-    right  = left + int(match['width'])
+    width  = int(match['width'])
 
-    return bottom, left, top, right
+    return num, top, height, left, width
 
+def mark(check, num):
+    if check == 0:
+        return num
+    return 'X'
 
-squares = [Square(*get_points(x)) for x in cuts]
+def mark_cut(cut):
+    num, top, height, left, width = get_points(cut)
 
+    for y in range(top, top+height):
+        for x in range(left, left+width):
+            sheet[y][x] = mark(sheet[y][x], num)
 
-    
+for cut in cuts:
+    mark_cut(cut)
+
+count = 0
+for row in sheet:
+    for col in row:
+        if col == 'X':
+            count += 1
+
+print("Overlapping values:", count)
+
+def check_overlap(cut):
+    num, top, height, left, width = get_points(cut)
+
+    overlap = False
+    for row in range(top, top+height):
+        for col in range(left, left+width):
+            if sheet[row][col] == 'X':
+                overlap = True
+    if not overlap:
+        print("ID", num, "does not overlap!")
+
+for cut in cuts:
+    check_overlap(cut)
