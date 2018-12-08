@@ -70,6 +70,16 @@ print("\tGuard", g_answer,
 
 print("Part 1 Final answer =", int(g_answer) * m_answer)
 
+min_count = []
+for guard in sked:
+    min_count.append(
+        (guard, Counter(sked[guard]).most_common(1)[0])
+        )
 
+most_common = sorted(min_count, key= lambda x: x[1][1])[-1]
 
-print("\n\tGuard with the most common minute asleep:")
+print("\n\tGuard with the most common minute asleep:",most_common[0],
+      "-- minute", most_common[1][0],
+      'x', most_common[1][1] )
+
+print("Part 2 Final Answer =", int(most_common[0]) * most_common[1][0])
