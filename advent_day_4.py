@@ -60,7 +60,8 @@ backwards = {v:k for k,v in sleeptime.items()}
 
 g_answer = backwards[max(list(backwards.keys()))]
 m_answer = Counter(sked[g_answer]).most_common(1)[0][0]
-                         
+
+print("Part 1 Final answer =", int(g_answer) * m_answer)
 print("\tGuard that slept the most:",
       g_answer, '--',
       sleeptime[g_answer], 'minutes')
@@ -68,7 +69,7 @@ print("\tGuard that slept the most:",
 print("\tGuard", g_answer,
       "common minute:", m_answer)
 
-print("Part 1 Final answer =", int(g_answer) * m_answer)
+
 
 min_count = []
 for guard in sked:
@@ -78,8 +79,10 @@ for guard in sked:
 
 most_common = sorted(min_count, key= lambda x: x[1][1])[-1]
 
-print("\n\tGuard with the most common minute asleep:",most_common[0],
-      "-- minute", most_common[1][0],
-      'x', most_common[1][1] )
+print("\nPart 2 Final Answer =", int(most_common[0]) * most_common[1][0])
 
-print("Part 2 Final Answer =", int(most_common[0]) * most_common[1][0])
+print("\tGuard with the most common minute asleep:",most_common[0],
+      "\n\t\tminute", most_common[1][0],
+      '\n\t\ttotal', most_common[1][1], "times" )
+
+
